@@ -2,59 +2,53 @@
 import random
 import asyncio
 import aiohttp
-import numpy
 import config
+
 from discord import Game
 from discord.ext.commands import Bot
 
-BOT_PREFIX = ("+")
-TOKEN = config.TOKEN  # Get at discordapp.com/developers/applications/me
+BOT_PREFIX = config.COMMANDPREF
+TOKEN = config.TOKEN
 
 client = Bot(command_prefix=BOT_PREFIX)
-
-
-@client.command(name='8ball',
-                description="Answers a yes/no question.",
-                brief="Answers from the beyond.",
-                aliases=['eight_ball', 'eightball', '8-ball'],
-                pass_context=True)
-async def eight_ball(context):
-    possible_responses = [
-        'That is a resounding no',
-        'It is not looking likely',
-        'Too hard to tell',
-        'It is quite possible',
-        'Definitely',
-    ]
-    await client.say(random.choice(possible_responses) + ", " + context.message.author.mention)
-
-
-@client.command()
-async def square(number):
-    squared_value = float(number) * float(number)
-    await client.say(str(number) + " squared is " + str(squared_value))
-
-
-@client.command()
-async def sqrt(number):
-    root = numpy.sqrt(float(number))
-    await client.say("The square root of " + str(number) + " is " + str(root))
-
 
 @client.event
 async def on_ready():
     await client.change_presence(game=Game(name="with humans"))
     print("Logged in as " + client.user.name)
 
+@client.event
+async def on_message(message):
+    # If the message author isn't the bot and the message starts with the
+    # command prefix ('!' by default), check if command was executed
+    if message.author.id != config.BOTID and message.content.startswith(BOT_PREFIX):
+        # Remove prefix and change to lowercase so commands aren't case-sensitive
+        message.content = message.content[1:].lower()
 
-@client.command()
-async def bitcoin():
-    url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
-    async with aiohttp.ClientSession() as session:  # Async HTTP request
-        raw_response = await session.get(url)
-        response = await raw_response.text()
-        response = json.loads(response)
-        await client.say("Bitcoin price is: $" + response['bpi']['USD']['rate'])
+        # Shuts the bot down - only usable by the bot owner specified in config
+        if message.content.startswith('shutdown') and message.author.id == config.OWNERID:
+            await client.send_message(message.channel, 'Shutting down. Bye!')
+            await client.logout()
+            await client.close()
+
+        # Allows owner to set the game status of the bot
+        elif message.content.startswith('status') and message.author.id == config.OWNERID:
+            await client.change_presence(game=discord.Game(name=message.content[7:]))
+
+        # Help Message, sends a personal message with a list of all the commands
+        # and how to use them correctly
+        elif message.content.startswith('help'):
+            import helpMessage
+            await client.send_message(message.channel, 'Sending you a PM!')
+            await client.send_message(message.author, helpMessage.help)
+
+        #APOD
+        elif message.content.startswith('astropic'):
+            import astropic
+            pic = astropic.getAPOD(message.content)
+            await client.send_message(message.channel, pic[0])
+            await client.send_message(message.channel, '**' + pic[1]
+                                      + '**' + '\n' + pic[2])
 
 
 async def list_servers():
