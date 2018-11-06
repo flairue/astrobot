@@ -43,12 +43,21 @@ async def on_message(message):
             await client.send_message(message.author, helpMessage.help)
 
         #APOD
-        elif message.content.startswith('astropic'):
+        elif message.content.startswith('apod'):
             import astropic
-            pic = astropic.getAPOD(message.content)
-            await client.send_message(message.channel, pic[0])
-            await client.send_message(message.channel, '**' + pic[1]
-                                      + '**' + '\n' + pic[2])
+            url, title, expl = astropic.getAPOD(message.content)
+            await client.send_message(message.channel, url)
+            await client.send_message(message.channel, '**' + title
+                                      + '**' + '\n ```' + expl + '```')
+
+        #DateTime
+        elif message.content.startswith('whattime'):
+            import datecalc
+            await client.send_message(message.channel, datecalc.whine)
+            await client.send_message(message.channel, datecalc.now(message.content))
+
+        elif message.content.startswith('anas'):
+            await client.send_message(message.channel, 'ANASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
 
 
 async def list_servers():

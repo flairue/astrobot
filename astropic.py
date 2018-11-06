@@ -6,8 +6,9 @@ os.environ["NASA_API_KEY"] = config.NASA_API_KEY
 def getAPOD(message):
     from nasa import apod
 
-    date = message.replace('astropic', '')
+    date = message.replace('apod', '')
     if date == '':
-        date = None
-    pic = apod.apod(date[1:])
+        pic = pic = apod.apod(date=None)
+    else:
+        pic = apod.apod(date[1:])
     return pic.url, pic.title, pic.explanation
