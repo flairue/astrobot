@@ -1,4 +1,4 @@
-import config
+#import config
 
 help = '''
 {0}help will send show you, well, this message.
@@ -10,4 +10,4 @@ help = '''
 {0}moon [illumination] [rotation] to simulate moon phase.
 
 This bot was created by flairue.
-'''.format(config.COMMANDPREF)
+'''.format(COMMANDPREF)
