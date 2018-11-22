@@ -39,25 +39,41 @@ async def on_message(message):
         # and how to use them correctly
         elif message.content.startswith('help'):
             import helpMessage
-            await client.send_message(message.channel, 'Sending you a PM!')
-            await client.send_message(message.author, helpMessage.help)
+            #await client.send_message(message.channel, 'Sending you a PM!')
+            #await client.send_message(message.author, helpMessage.help)
+            await client.send_message(message.channel, helpMessage.help)
 
         #APOD
         elif message.content.startswith('apod'):
             import astropic
-            url, title, expl = astropic.getAPOD(message.content)
-            await client.send_message(message.channel, url)
-            await client.send_message(message.channel, '**' + title
-                                      + '**' + '\n ```' + expl + '```')
+            try:
+                url, title, expl = astropic.getAPOD(message.content)
+                await client.send_message(message.channel, url)
+                await client.send_message(message.channel, '**' + title
+                                          + '**' + '\n ```' + expl + '```')
+            except:
+                await client.send_message(message.channel, 'Check your date, maybe?')
 
-        #DateTime
+        #Fetching wikipedia page summary
+        elif message.content.startswith('wiki'):
+            import wiki
+            await client.send_message(message.channel, wiki.wksum(message.content))
+
+        #DateTime, needs so many improvements. This is just a placeholder.
         elif message.content.startswith('whattime'):
             import datecalc
             await client.send_message(message.channel, datecalc.whine)
             await client.send_message(message.channel, datecalc.now(message.content))
 
+        #Moon phases
+        elif message.content.startswith('moon'):
+            import moon
+            await client.send_message(message.channel, moon.phase(message.content))
+
+        #Secret message for my bro
         elif message.content.startswith('anas'):
             await client.send_message(message.channel, 'ANASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
+
 
 
 async def list_servers():

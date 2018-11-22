@@ -7,5 +7,7 @@ help = '''
 
 {0}whattime will tell you current UTC time. Use +-[your timezone] to convert the UTC time to your timezone.
 
+{0}moon [illumination] [rotation] to simulate moon phase.
+
 This bot was created by flairue.
 '''.format(config.COMMANDPREF)

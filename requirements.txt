@@ -1,4 +1,5 @@
-### I still don't know how to properly list the dependencies, so this file is just a placeholder. 
+### I still don't know how to properly list the dependencies, so this file is just a placeholder.
 
 https://github.com/brendanv/nasa-api
 https://github.com/Rapptz/discord.py@rewrite
+https://github.com/martin-majlis/Wikipedia-API
