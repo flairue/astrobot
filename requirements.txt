@@ -1,5 +1,5 @@
 ### I still don't know how to properly list the dependencies, so this file is just a placeholder.
 
 git+https://github.com/brendanv/nasa-api
-git+https://github.com/Rapptz/discord.py@rewrite
+git+https://github.com/Rapptz/discord.py
 git+https://github.com/martin-majlis/Wikipedia-API
