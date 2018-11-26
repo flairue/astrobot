@@ -2,13 +2,15 @@
 import random
 import asyncio
 import aiohttp
+from os import environ
 #import config
 
 from discord import Game
 from discord.ext.commands import Bot
 
-BOT_PREFIX = COMMANDPREF
-TOKEN = TOKEN
+BOT_PREFIX = environ['COMMANDPREF']
+TOKEN = environ['TOKEN']
+BOTID = environ['BOTID']
 
 client = Bot(command_prefix=BOT_PREFIX)
 

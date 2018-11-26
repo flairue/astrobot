@@ -1,8 +1,8 @@
-import os
-#import config
-os.environ["NASA_API_KEY"] = NASA_API_KEY
+from os import environ #import config
+#os.environ["NASA_API_KEY"] = NASA_API_KEY
 #import requests
 
+api = environ["NASA_API_KEY"]
 def getAPOD(message):
     from nasa import apod
 
