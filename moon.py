@@ -33,11 +33,11 @@ def phase(pos):
     }
     return index, phasename[int(index) & 7]
 
-def moonpic(pos):
+def moonpic(i):
     p = 0
-    if pos > 0.5:
+    if i > 0.5:
         p = math.pi
-    return "https://www.timeanddate.com/scripts/moon.php?i={0}&p={1}".format(pos, p)
+    return "https://www.timeanddate.com/scripts/moon.php?i={0}&p={1}".format(i, p)
 
 #Main function
 def Moon(content):
@@ -48,6 +48,7 @@ def Moon(content):
     
     pos = position(date)
     idx, phname = phase(pos)
+    illum = math.sin(pos/dec(0.5) * dec(math.pi/2))
 
     captions = {
         0: "THAT'S NO MOON!",
@@ -60,5 +61,7 @@ def Moon(content):
         7: "It's fading away..."
     }
 
-    pic = moonpic(pos)
+    pic = moonpic(illum)
     return "It's {0}. {1} \n {2}".format(phname, captions[idx & 7], pic)
+
+print(Moon("moon 2018-11-07"))
