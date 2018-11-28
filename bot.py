@@ -41,8 +41,6 @@ async def on_message(message):
         # and how to use them correctly
         elif message.content.startswith('help'):
             import helpMessage
-            #await client.send_message(message.channel, 'Sending you a PM!')
-            #await client.send_message(message.author, helpMessage.help)
             await client.send_message(message.channel, helpMessage.help)
 
         #APOD
@@ -70,7 +68,7 @@ async def on_message(message):
         #Moon phases
         elif message.content.startswith('moon'):
             import moon
-            await client.send_message(message.channel, moon.phase(message.content))
+            await client.send_message(message.channel, moon.Moon(message.content))
 
         #Secret message for my bro
         elif message.content.startswith('anas'):

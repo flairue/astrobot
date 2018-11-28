@@ -13,5 +13,3 @@ def getAPOD(message):
 
     pic = apod.apod(date)
     return pic.url, pic.title, pic.explanation
-
-print(str('hello world noice'.split()[1:]))
