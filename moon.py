@@ -41,18 +41,16 @@ def moonpic(pos):
 
 #Main function
 def Moon(content):
-    date = content.replace("moon ", "")
-
-    if date == "":
-        return "Sorry, it's not supported yet!"
-    else:
+    if len(content.split()) == 1:
         date = None
+    else:
+        date = datetime.strptime(content.split()[1], "%Y-%m-%d")
     
     pos = position(date)
     idx, phname = phase(pos)
 
     captions = {
-        0: "No Moon tonight. Bring out your telescopes!",
+        0: "THAT'S NO MOON!",
         1: "Look at that cute little crescent.",
         2: "Halfway there.",
         3: "She's fat.",
@@ -63,10 +61,4 @@ def Moon(content):
     }
 
     pic = moonpic(pos)
-    return "It's {0}. {1} \n {2} {3}".format(phname, captions[idx], pic, idx)
-
-poses = [0.01 * i for i in range(100)]
-for i in poses:
-   print(i, phase(dec(i)))
-
-print(Moon("moon"))
+    return "It's {0}. {1} \n {2}".format(phname, captions[idx & 7], pic)
