@@ -87,8 +87,8 @@ def Julian(content):
             date = datetime.strptime(content.split()[1], "%Y-%m-%d")
         except:
             return "Check your date, maybe?"
-    else:
-        return "Check your date, maybe?"
+    elif > 2:
+        "Check your date, maybe?"
 
     day = date.day + date.hour/24 + date.minute/(24 * 60) + date.second/(24 * 3600)
     jd = date_to_jd(date.year, date.month, day)
