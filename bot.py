@@ -60,10 +60,9 @@ async def on_message(message):
             await client.send_message(message.channel, wiki.wksum(message.content))
 
         #DateTime, needs so many improvements. This is just a placeholder.
-        elif message.content.startswith('whattime'):
+        elif message.content.startswith('julian'):
             import datecalc
-            await client.send_message(message.channel, datecalc.whine)
-            await client.send_message(message.channel, datecalc.now(message.content))
+            await client.send_message(message.channel, datecalc.Julian(message.content))
 
         #Moon phases
         elif message.content.startswith('moon'):
