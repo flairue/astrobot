@@ -9,6 +9,8 @@ help = '''
 
 {0}wiki [article title] to get you the link to the article. Don't mistype!
 
+{0}julian [YYYY-MM-DD] will convert the date into JD.
+
 This bot was created by Naufal (flairue).
 
 >>> Dibuat dalam rangka menunaikan tugas komunas.
